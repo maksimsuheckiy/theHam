@@ -1,0 +1,84 @@
+const tabContainer = document.querySelector('.services-desc-menu');
+const portfolioContainer = document.querySelector('.portfolio-menu');
+const loadWorks = document.getElementById('loadWorks');
+
+tabContainer.addEventListener('click', event => {
+    let tabActive = document.querySelector('.menu-item.menu-item--active');
+    let contentActive = document.querySelector('.content-item.content-item--active');
+    let target = event.target;
+
+    tabActive.classList.remove('menu-item--active');
+    target.classList.add('menu-item--active');
+
+    contentActive.classList.remove('content-item--active');
+    document.querySelector(`#${target.dataset.tab}`).classList.add('content-item--active');
+});
+
+portfolioContainer.addEventListener('click', event => {
+    let tabActive = document.querySelector('.portfolio-menu-item.portfolio-menu-item--active');
+    let content = document.querySelectorAll('.portfolio-works-item');
+    let target = event.target;
+
+    tabActive.classList.remove('portfolio-menu-item--active');
+    target.classList.add('portfolio-menu-item--active');
+
+    content.forEach(el => {
+        el.hidden = target.dataset.portfolio !== el.dataset.content;
+        if (target === portfolioContainer.firstElementChild) el.hidden = false;
+    });
+});
+
+loadWorks.addEventListener('click', event => {
+    event.preventDefault();
+    const worksContainer = document.querySelector('.portfolio-works');
+
+    for (let i = 1; i <= 12; i++) {
+        worksContainer.insertAdjacentHTML('beforeend', `
+            <li class="portfolio-works-item" data-content="graphicDesign">
+               <div class="works-item-picture">
+                  <img src="assets/graphic-design/graphic-design${i}.jpg" alt='graphic design${i}'>
+               </div>
+               <div class="works-item-info">
+                  <div class="item-info-links">
+                     <a href="#" class="info-link">
+                        <svg focusable="false" data-prefix="fas" data-icon="link" class="svg-inline--fa fa-link fa-w-16 link-picture" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                           <path class="info-picture" fill="#18cfab" d="M326.612 185.391c59.747 59.809 58.927 155.698.36 214.59-.11.12-.24.25-.36.37l-67.2 67.2c-59.27 59.27-155.699 59.262-214.96 0-59.27-59.26-59.27-155.7 0-214.96l37.106-37.106c9.84-9.84 26.786-3.3 27.294 10.606.648 17.722 3.826 35.527 9.69 52.721 1.986 5.822.567 12.262-3.783 16.612l-13.087 13.087c-28.026 28.026-28.905 73.66-1.155 101.96 28.024 28.579 74.086 28.749 102.325.51l67.2-67.19c28.191-28.191 28.073-73.757 0-101.83-3.701-3.694-7.429-6.564-10.341-8.569a16.037 16.037 0 0 1-6.947-12.606c-.396-10.567 3.348-21.456 11.698-29.806l21.054-21.055c5.521-5.521 14.182-6.199 20.584-1.731a152.482 152.482 0 0 1 20.522 17.197zM467.547 44.449c-59.261-59.262-155.69-59.27-214.96 0l-67.2 67.2c-.12.12-.25.25-.36.37-58.566 58.892-59.387 154.781.36 214.59a152.454 152.454 0 0 0 20.521 17.196c6.402 4.468 15.064 3.789 20.584-1.731l21.054-21.055c8.35-8.35 12.094-19.239 11.698-29.806a16.037 16.037 0 0 0-6.947-12.606c-2.912-2.005-6.64-4.875-10.341-8.569-28.073-28.073-28.191-73.639 0-101.83l67.2-67.19c28.239-28.239 74.3-28.069 102.325.51 27.75 28.3 26.872 73.934-1.155 101.96l-13.087 13.087c-4.35 4.35-5.769 10.79-3.783 16.612 5.864 17.194 9.042 34.999 9.69 52.721.509 13.906 17.454 20.446 27.294 10.606l37.106-37.106c59.271-59.259 59.271-155.699.001-214.959z"></path>
+                        </svg>
+                     </a>
+                     <a href="#" class="info-link">
+                        <svg focusable="false" data-prefix="fas" data-icon="square-full" class="svg-inline--fa fa-square-full fa-w-16 link-picture-square" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                           <path class="info-picture" fill="#18cfab" d="M512 512H0V0h512v512z"></path>
+                        </svg>
+                     </a>
+                  </div>
+                  <div class="item-info-desc">
+                     <p class="info-desc-caption">Creative Graphic Design</p>
+                     <p class="info-desc-category">Graphic Design</p>
+                  </div>
+               </div>
+            </li>
+        `);
+    }
+
+    loadWorks.remove();
+});
+
+new Swiper ('.swiper-container', {
+    navigation: {
+        nextEl: '.carousel-arrow-next',
+        prevEl: '.carousel-arrow-prev'
+    },
+    pagination: {
+        el: '.carousel-pagination',
+        clickable: true
+    }
+});
+
+
+
+
+
+
+
+
+
